@@ -23,27 +23,32 @@ body {
     margin-bottom: 20px; /* Space from bottom */
 }
 
-header {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #555;
-}
-
-header p {
-    margin: 5px 0;
-    font-size: 0.95em;
-}
-
-header p:last-child {
-    font-weight: 500;
-    color: #00a58e;
-}
+/* Removed header styles as header element is removed */
 
 h1 {
     text-align: center;
     color: #00a58e;
-    margin-bottom: 30px;
+    margin-bottom: 15px; /* Adjusted margin for new text below */
     font-weight: 700;
+}
+
+.form-instruction,
+.form-note {
+    text-align: center;
+    font-size: 0.9em;
+    color: #555;
+    margin: 5px auto 10px; /* Adjusted margins */
+    max-width: 90%; /* Prevent very long lines on wide screens */
+}
+
+.form-instruction {
+    font-style: italic;
+}
+
+.form-note {
+    font-weight: 500;
+    color: #00a58e; /* Brand color for the note */
+    margin-bottom: 25px; /* More space before the first field */
 }
 
 h2 {
@@ -53,6 +58,7 @@ h2 {
     border-bottom: 2px solid #e8edf1;
     padding-bottom: 8px;
     font-weight: 500;
+    text-align: center; /* Center section titles */
 }
 
 /* Form Group Styling */
@@ -306,8 +312,11 @@ button[type="submit"]:hover, button[type="button"]:hover {
         font-size: 1.2em;
     }
 
-    header p {
-        font-size: 0.9em;
+    /* header p styles removed as header is removed */
+
+    .form-instruction,
+    .form-note {
+        font-size: 0.85em; /* Adjust for smaller screens */
     }
 
     .form-group label {
