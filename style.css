@@ -111,18 +111,33 @@ h2 {
 
 .enlarge-icon {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
-    font-size: 1.2em; /* Make icon a bit larger */
+    top: 8px; /* Adjust for better vertical alignment */
+    right: 8px; /* Adjust for better horizontal alignment */
     cursor: pointer;
-    color: #00a58e;
-    padding: 5px;
-    transition: color 0.3s ease;
+    padding: 3px; /* Add some padding around SVG */
     z-index: 1; /* Ensure it's above the textarea scrollbar if any */
+    display: flex; /* To help center SVG if needed */
+    align-items: center;
+    justify-content: center;
 }
 
-.enlarge-icon:hover {
-    color: #007a68;
+.enlarge-icon svg {
+    width: 20px; /* Adjust size of SVG */
+    height: 20px; /* Adjust size of SVG */
+    stroke: #00a58e; /* Primary color for stroke */
+    transition: stroke 0.3s ease;
+}
+
+.enlarge-icon:hover svg {
+    stroke: #007a68; /* Darker shade on hover */
+}
+
+/* Adjustments for smaller textareas if padding is too much */
+.form-group textarea {
+    min-height: 100px; /* Default height for textareas */
+    resize: none; /* Prevent manual resizing */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+    padding-right: 35px; /* Ensure text does not go under the icon */
 }
 
 /* Submit Button */
@@ -303,8 +318,15 @@ button[type="submit"]:hover, button[type="button"]:hover {
     }
 
     .enlarge-icon {
-        font-size: 1em;
-        top: 8px;
-        right: 8px;
+        /* font-size adjustment not needed for SVG */
+        top: 6px; /* Fine-tune for smaller screens */
+        right: 6px; /* Fine-tune for smaller screens */
+    }
+    .enlarge-icon svg {
+        width: 18px; /* Slightly smaller icon for mobile */
+        height: 18px; /* Slightly smaller icon for mobile */
+    }
+    .form-group textarea {
+        padding-right: 30px; /* Adjust padding for smaller icon */
     }
 }
