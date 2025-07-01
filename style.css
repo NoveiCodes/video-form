@@ -1,0 +1,310 @@
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom right, #e8edf1, #00a58e);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top to see header */
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 700px; /* Max width of the form container */
+    margin-top: 20px; /* Space from top */
+    margin-bottom: 20px; /* Space from bottom */
+}
+
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #555;
+}
+
+header p {
+    margin: 5px 0;
+    font-size: 0.95em;
+}
+
+header p:last-child {
+    font-weight: 500;
+    color: #00a58e;
+}
+
+h1 {
+    text-align: center;
+    color: #00a58e;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+h2 {
+    color: #00a58e;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e8edf1;
+    padding-bottom: 8px;
+    font-weight: 500;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group .description {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: -5px;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="email"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type="email"]:focus,
+.form-group textarea:focus {
+    border-color: #00a58e;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 165, 142, 0.3);
+}
+
+.form-group textarea {
+    min-height: 100px; /* Default height for textareas */
+    resize: none; /* Prevent manual resizing */
+    overflow-y: auto; /* Enable vertical scroll if content overflows */
+}
+
+.required-asterisk {
+    color: #d9534f; /* Red color for asterisk */
+    margin-left: 2px;
+}
+
+/* Textarea Container for Enlarge Icon */
+.textarea-container {
+    position: relative;
+}
+
+.enlarge-icon {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    font-size: 1.2em; /* Make icon a bit larger */
+    cursor: pointer;
+    color: #00a58e;
+    padding: 5px;
+    transition: color 0.3s ease;
+    z-index: 1; /* Ensure it's above the textarea scrollbar if any */
+}
+
+.enlarge-icon:hover {
+    color: #007a68;
+}
+
+/* Submit Button */
+button[type="submit"], button[type="button"] {
+    background-color: #00a58e;
+    color: #ffffff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block;
+    margin: 20px auto 0; /* Center button */
+}
+
+button[type="submit"]:hover, button[type="button"]:hover {
+    background-color: #007a68; /* Darker shade on hover */
+    transform: translateY(-2px);
+}
+
+#createAnotherButton {
+    background-color: #e8edf1;
+    color: #00a58e;
+    border: 1px solid #00a58e;
+}
+
+#createAnotherButton:hover {
+    background-color: #d1d9e0;
+    color: #007a68;
+}
+
+
+/* Error Messages */
+.error-message {
+    display: block;
+    color: #d9534f; /* Red color for errors */
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+/* Form Message (for success/submission status) */
+.form-message {
+    text-align: center;
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+.form-message.success {
+    background-color: #d4edda; /* Light green for success */
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.form-message.error {
+    background-color: #f8d7da; /* Light red for error */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6); /* Dim background */
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: auto; /* Center modal */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px; /* Max width of modal */
+    display: flex;
+    flex-direction: column;
+}
+
+#modalTextarea {
+    width: 100%;
+    min-height: 300px; /* Larger editing area */
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 20px;
+    resize: none; /* No resizing for modal textarea either */
+    overflow-y: auto; /* Scroll for overflow */
+}
+
+#modalDoneButton {
+    background-color: #00a58e;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end; /* Position button to the right */
+}
+
+#modalDoneButton:hover {
+    background-color: #007a68;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .form-group input[type="email"],
+    .form-group textarea {
+        padding: 10px;
+    }
+
+    button[type="submit"], button[type="button"] {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    #modalTextarea {
+        min-height: 250px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+    }
+    h2 {
+        font-size: 1.2em;
+    }
+
+    header p {
+        font-size: 0.9em;
+    }
+
+    .form-group label {
+        font-size: 0.95em;
+    }
+    .form-group .description {
+        font-size: 0.8em;
+    }
+
+    .enlarge-icon {
+        font-size: 1em;
+        top: 8px;
+        right: 8px;
+    }
+}

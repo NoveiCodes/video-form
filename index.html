@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Generator Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <p>Help us bring your vision to life. Fill out the form with as much detail as you can.</p>
+            <p>Note: Max duration of the video is 8 seconds.</p>
+        </header>
+
+        <form id="videoForm">
+            <h1>Video Generator Form</h1>
+
+            <div class="form-group">
+                <label for="requestorEmail">Requestor's Email <span class="required-asterisk">*</span></label>
+                <input type="email" id="requestorEmail" name="requestorEmail" placeholder="Please provide your kiwi email." required>
+                <span class="error-message" id="emailError"></span>
+            </div>
+
+            <h2>Scene Description</h2>
+
+            <div class="form-group">
+                <label for="settingLocation">Setting / Location <span class="required-asterisk">*</span></label>
+                <p class="description">Where does the scene take place?</p>
+                <div class="textarea-container">
+                    <textarea id="settingLocation" name="settingLocation" placeholder="A bustling futuristic city at night, neon lights reflecting on wet streets." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="settingLocationError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="style">Style <span class="required-asterisk">*</span></label>
+                <p class="description">Describe the visual style or artistic direction.</p>
+                <div class="textarea-container">
+                    <textarea id="style" name="style" placeholder="Animated or like a Wes Anderson film." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="styleError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="timeOfDay">Time of Day / Lighting <span class="required-asterisk">*</span></label>
+                <p class="description">When does it happen? What’s the lighting like?</p>
+                <div class="textarea-container">
+                    <textarea id="timeOfDay" name="timeOfDay" placeholder="Sunset with golden hour lighting." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="timeOfDayError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="charactersSubjects">Characters / Subjects <span class="required-asterisk">*</span></label>
+                <p class="description">Who or what is in the scene? Describe them in detail.</p>
+                <div class="textarea-container">
+                    <textarea id="charactersSubjects" name="charactersSubjects" placeholder="A young woman wearing a red coat, holding a glowing orb." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="charactersSubjectsError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="actionMovement">Action / Movement <span class="required-asterisk">*</span></label>
+                <p class="description">What is happening?</p>
+                <div class="textarea-container">
+                    <textarea id="actionMovement" name="actionMovement" placeholder="The woman walks slowly toward the camera as drones fly overhead." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="actionMovementError"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="additionalElements">Additional Elements <span class="required-asterisk">*</span></label>
+                <p class="description">Anything else to include? Weather, objects, atmosphere.</p>
+                <div class="textarea-container">
+                    <textarea id="additionalElements" name="additionalElements" placeholder="Light rain falling, reflections on the pavement, distant sirens." required></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+                <span class="error-message" id="additionalElementsError"></span>
+            </div>
+
+            <h2>Audio / Voice (optional)</h2>
+
+            <div class="form-group">
+                <label for="voiceoverScript">Voiceover Script</label>
+                <p class="description">Script to be narrated, if applicable.</p>
+                <div class="textarea-container">
+                    <textarea id="voiceoverScript" name="voiceoverScript" placeholder="(Leave empty if not applicable.)"></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="voiceoverLanguageStyle">Voiceover Language & Style</label>
+                <p class="description">Specify language, accent, tone (e.g., calm female, enthusiastic male).</p>
+                <div class="textarea-container">
+                    <textarea id="voiceoverLanguageStyle" name="voiceoverLanguageStyle" placeholder="(Leave empty if not applicable.)"></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="backgroundMusicPreference">Background Music Preference</label>
+                <p class="description">Genre or mood of background music.</p>
+                <div class="textarea-container">
+                    <textarea id="backgroundMusicPreference" name="backgroundMusicPreference" placeholder="(Leave empty if not applicable.)"></textarea>
+                    <span class="enlarge-icon" title="Enlarge editor">➔</span>
+                </div>
+            </div>
+
+            <button type="submit" id="submitButton">Submit</button>
+            <div id="formMessage" class="form-message"></div>
+            <button type="button" id="createAnotherButton" style="display:none;">Create Another Video</button>
+
+        </form>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <textarea id="modalTextarea"></textarea>
+            <button id="modalDoneButton">Done</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
