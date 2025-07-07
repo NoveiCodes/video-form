@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         try {
-            const response = await fetch('https://kiwicom.app.n8n.cloud/webhook-test/ab49d9f2-de99-478c-a47f-e5ef7eae655d', {
+            const response = await fetch('https://kiwicom.app.n8n.cloud/webhook/ab49d9f2-de99-478c-a47f-e5ef7eae655d', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
