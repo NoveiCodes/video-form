@@ -208,8 +208,9 @@ button[type="submit"]:hover, button[type="button"]:hover {
 }
 
 
-/* Modal Styles */
-.modal {
+/* Textarea Enlarge Modal Styles */
+/* Ensure this modal and success modal share common base if desired, or keep separate */
+.modal { /* This class is used by both textarea modal and success modal for base overlay properties */
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
@@ -230,7 +231,7 @@ button[type="submit"]:hover, button[type="button"]:hover {
     border-radius: 10px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
     width: 80%;
-    max-width: 600px; /* Max width of modal */
+    max-width: 600px; /* Max width of textarea modal */
     display: flex;
     flex-direction: column;
 }
@@ -264,6 +265,91 @@ button[type="submit"]:hover, button[type="button"]:hover {
     background-color: #007a68;
 }
 
+
+/* Success Modal Specific Styles */
+.success-modal .success-modal-content {
+    background-color: #ffffff;
+    margin: auto; /* Center modal */
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 500px; /* Max width of success modal */
+    text-align: center;
+    position: relative; /* For positioning close button and confetti canvas */
+    animation: fadeInModal 0.5s ease-out forwards;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.success-modal h2 {
+    color: #00a58e; /* Kiwi green */
+    font-size: 1.8em;
+    margin-top: 10px; /* Adjusted from default h2 */
+    margin-bottom: 15px;
+    border-bottom: none; /* Remove border from general h2 styles */
+}
+
+.success-modal p.additional-info {
+    font-size: 0.95em;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.6;
+}
+
+.success-modal .close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 1.8em;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.success-modal .close-button:hover {
+    color: #333;
+}
+
+/* Ensure the "Create Another Video" button inside the modal uses the primary button style */
+.success-modal #createAnotherButton {
+    background-color: #00a58e;
+    color: #ffffff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block; /* Or block with auto margins if preferred */
+    margin-top: 10px; /* Space above the button */
+}
+
+.success-modal #createAnotherButton:hover {
+    background-color: #007a68;
+    transform: translateY(-2px);
+}
+
+
+/* Form Error Message Styling (if #formErrorMessage is used) */
+#formErrorMessage.error { /* Ensure it uses the .error class for styling */
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    /* padding, margin, text-align already defined by .form-message */
+}
+
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
@@ -286,9 +372,23 @@ button[type="submit"]:hover, button[type="button"]:hover {
         font-size: 1em;
     }
 
-    .modal-content {
+    .modal-content { /* Applies to textarea modal */
         width: 90%;
         padding: 20px;
+    }
+    .success-modal .success-modal-content { /* Applies to success modal */
+        width: 90%;
+        padding: 25px 20px; /* Adjust padding for smaller screens */
+    }
+    .success-modal h2 {
+        font-size: 1.6em;
+    }
+    .success-modal p.additional-info {
+        font-size: 0.9em;
+    }
+    .success-modal #createAnotherButton {
+        padding: 10px 20px;
+        font-size: 1em;
     }
 
     #modalTextarea {

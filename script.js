@@ -1,22 +1,28 @@
 document.addEventListener('DOMContentLoaded', function () {
     const videoForm = document.getElementById('videoForm');
-    const modal = document.getElementById('modal');
+    const emailInput = document.getElementById('requestorEmail');
+    const submitButton = document.getElementById('submitButton');
+    const formErrorMessage = document.getElementById('formErrorMessage'); // Renamed
+
+    // Textarea Enlarge Modal Elements
+    const textareaModal = document.getElementById('textareaModal'); // Renamed
     const modalTextarea = document.getElementById('modalTextarea');
     const modalDoneButton = document.getElementById('modalDoneButton');
     const enlargeIcons = document.querySelectorAll('.enlarge-icon');
-    const emailInput = document.getElementById('requestorEmail');
-    const formMessage = document.getElementById('formMessage');
-    const submitButton = document.getElementById('submitButton');
-    const createAnotherButton = document.getElementById('createAnotherButton');
-
     let currentEditingTextarea = null;
+
+    // Success Modal Elements
+    const successModal = document.getElementById('successModal');
+    const closeSuccessModalButton = successModal.querySelector('.close-button');
+    const createAnotherButton = document.getElementById('createAnotherButton'); // Now inside successModal
+
 
     // Textarea behavior: Enlarge icon and modal
     enlargeIcons.forEach(icon => {
         icon.addEventListener('click', function () {
             currentEditingTextarea = this.previousElementSibling; // The textarea is the direct sibling before the icon
             modalTextarea.value = currentEditingTextarea.value;
-            modal.style.display = 'flex'; // Use flex to center content as per CSS
+            textareaModal.style.display = 'flex'; // Use flex to center content as per CSS
             modalTextarea.focus();
         });
     });
@@ -25,19 +31,32 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentEditingTextarea) {
             currentEditingTextarea.value = modalTextarea.value;
         }
-        modal.style.display = 'none';
+        textareaModal.style.display = 'none';
         currentEditingTextarea = null;
     });
 
-    // Close modal if user clicks outside the modal content
+    // Close modals if user clicks outside their content or presses Escape
     window.addEventListener('click', function (event) {
-        if (event.target === modal) {
-            modal.style.display = 'none';
+        if (event.target === textareaModal) { // Click outside textarea modal content
+            textareaModal.style.display = 'none';
             currentEditingTextarea = null;
+        }
+        if (event.target === successModal) { // Click outside success modal content
+            closeSuccessModal();
         }
     });
 
-    // Prevent textarea resizing (already handled by CSS `resize: none;`)
+    window.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+            if (textareaModal.style.display === 'flex') {
+                textareaModal.style.display = 'none';
+                currentEditingTextarea = null;
+            }
+            if (successModal.style.display === 'flex') {
+                closeSuccessModal();
+            }
+        }
+    });
 
     // Form validation and submission
     videoForm.addEventListener('submit', function (event) {
@@ -101,9 +120,58 @@ document.addEventListener('DOMContentLoaded', function () {
         errorFields.forEach(field => field.classList.remove('error-field'));
     }
 
+    // Success Modal Functions
+    function openSuccessModal() {
+        successModal.style.display = 'flex';
+        // Trigger confetti
+        const confettiCanvas = successModal.querySelector('#confettiCanvasContainer'); // Though confetti lib might append to body
+
+        // Basic confetti shot
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        // Party poppers effect
+        const end = Date.now() + (3 * 1000); // 3 seconds
+        const colors = ['#00a58e', '#ffbb00', '#ff4136'];
+
+        function frame() {
+            confetti({
+                particleCount: 2,
+                angle: 60,
+                spread: 55,
+                origin: { x: 0 },
+                colors: colors
+            });
+            confetti({
+                particleCount: 2,
+                angle: 120,
+                spread: 55,
+                origin: { x: 1 },
+                colors: colors
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            }
+        }
+        frame(); // Start the popper animation
+    }
+
+    function closeSuccessModal() {
+        successModal.style.display = 'none';
+        // Potentially stop confetti here if it's continuous, but current one is one-shot + timed
+    }
+
+    // Event listener for the success modal's close button
+    closeSuccessModalButton.addEventListener('click', closeSuccessModal);
+
+
     async function submitForm() {
-        formMessage.textContent = '';
-        formMessage.className = 'form-message'; // Reset classes
+        formErrorMessage.textContent = ''; // Clear previous errors
+        formErrorMessage.className = 'form-message'; // Reset classes, will add 'error' class if needed
 
         const formData = new FormData(videoForm);
         const data = {};
@@ -121,35 +189,40 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
             if (response.ok) {
-                formMessage.textContent = 'Your video is being created. This will take approximately half an hour. We will inform you via Slack for further details.';
-                formMessage.classList.add('success');
-                videoForm.reset();
-                clearAllErrors();
-                submitButton.style.display = 'none';
-                createAnotherButton.style.display = 'block';
+                // videoForm.reset(); // Resetting form is now part of "Create Another Video" button
+                // clearAllErrors(); // Also part of "Create Another Video"
+                submitButton.style.display = 'none'; // Hide submit, show "Create Another" in modal
+                openSuccessModal();
+                // Note: The old createAnotherButton.style.display = 'block' is removed
+                // as the button is now permanently in the modal, which is shown.
             } else {
                 // Try to get error message from n8n if available
                 const errorData = await response.json().catch(() => null);
-                const errorMessage = errorData?.message || `HTTP error! Status: ${response.status}`;
-                formMessage.textContent = `Form submission failed: ${errorMessage}`;
-                formMessage.classList.add('error');
+                const errorMessageText = errorData?.message || `HTTP error! Status: ${response.status}`;
+                formErrorMessage.textContent = `Form submission failed: ${errorMessageText}`;
+                formErrorMessage.classList.add('error');
             }
         } catch (error) {
-            formMessage.textContent = `Form submission failed: ${error.message}. Please check your network connection.`;
-            formMessage.classList.add('error');
+            formErrorMessage.textContent = `Form submission failed: ${error.message}. Please check your network connection.`;
+            formErrorMessage.classList.add('error');
         }
     }
 
     createAnotherButton.addEventListener('click', function() {
+        closeSuccessModal(); // Close the modal first
         videoForm.reset();
         clearAllErrors();
-        formMessage.textContent = '';
-        formMessage.className = 'form-message';
-        submitButton.style.display = 'block';
-        createAnotherButton.style.display = 'none';
+        formErrorMessage.textContent = ''; // Clear any previous error messages
+        formErrorMessage.className = 'form-message'; // Reset error message classes
+        submitButton.style.display = 'block'; // Show the main submit button again
+        // The createAnotherButton itself is always visible within its modal, no need to hide/show it directly.
+
         // Ensure all fields are enabled and focus on the first field
-        Array.from(videoForm.elements).forEach(el => el.disabled = false);
+        Array.from(videoForm.elements).forEach(el => {
+            if(el.type !== 'submit' && el.type !== 'button') { // Don't disable buttons
+                 el.disabled = false;
+            }
+        });
         if(emailInput) emailInput.focus();
     });
-
 });
