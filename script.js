@@ -123,14 +123,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Success Modal Functions
     function openSuccessModal() {
         successModal.style.display = 'flex';
-        // Trigger confetti
-        const confettiCanvas = successModal.querySelector('#confettiCanvasContainer'); // Though confetti lib might append to body
+        const confettiZIndex = 1050; // Ensure this is higher than the modal's z-index
 
         // Basic confetti shot
         confetti({
             particleCount: 100,
             spread: 70,
-            origin: { y: 0.6 }
+            origin: { y: 0.6 },
+            zIndex: confettiZIndex
         });
 
         // Party poppers effect
@@ -143,14 +143,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 angle: 60,
                 spread: 55,
                 origin: { x: 0 },
-                colors: colors
+                colors: colors,
+                zIndex: confettiZIndex
             });
             confetti({
                 particleCount: 2,
                 angle: 120,
                 spread: 55,
                 origin: { x: 1 },
-                colors: colors
+                colors: colors,
+                zIndex: confettiZIndex
             });
 
             if (Date.now() < end) {
